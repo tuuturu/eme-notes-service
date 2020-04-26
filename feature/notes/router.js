@@ -1,11 +1,12 @@
 const express = require('express')
-
-const { helperFunction } = require('./helper_functionality')
+const { SaneRedis } = require('@tuuturu/toolbox-node/data')
 
 const router = express.Router()
 
 router.get('/', async (req, res) => {
-	res.json({ result: helperFunction() })
+	const client = new SaneRedis.Client()
+
+	res.json({ msg: 'works' })
 })
 
 module.exports = router

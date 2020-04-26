@@ -1,8 +1,8 @@
-node_modules/
-.idea/
-helm-chart/
+*
 
-makefile
-.env
-.gitignore
-README.md
+!./feature
+!./lib
+!./server.js
+
+!./package.json
+!./package-lock.json
