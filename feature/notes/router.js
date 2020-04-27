@@ -2,6 +2,7 @@ const express = require('express')
 const { nanoid } = require('nanoid')
 const { SaneRedis } = require('@tuuturu/toolbox-node/data')
 
+const { log } = require('../../lib/logging')
 const { Note } = require('./models')
 
 const router = express.Router()
@@ -12,6 +13,7 @@ client.connect(process.env.REDIS_URI)
 	.catch(() => console.log(`Error connecting to ${process.env.REDIS_URI}`))
 
 router.get('/', async (req, res) => {
+	log.debug('/get notes')
 	const repoKey = [
 		req.principal,
 		'notes'
