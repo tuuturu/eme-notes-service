@@ -9,11 +9,10 @@ const router = express.Router()
 
 const client = new SaneRedis.Client()
 client.connect(process.env.REDIS_URI)
-	.then(() => console.log(`Successfully connected to ${process.env.REDIS_URI}`))
-	.catch(() => console.log(`Error connecting to ${process.env.REDIS_URI}`))
+	.then(() => log.info(`Successfully connected to ${process.env.REDIS_URI}`))
+	.catch(() => log.info(`Error connecting to ${process.env.REDIS_URI}`))
 
 router.get('/', async (req, res) => {
-	log.debug('/get notes')
 	const repoKey = [
 		req.principal,
 		'notes'
@@ -54,7 +53,7 @@ router.patch('/:id', async (req, res) => {
 	const repo = client.createCollectionRepository(repoKey)
 	const note = await repo.get(req.params.id)
 
-	const updatedNote = new Note(Object.assign(note, req.body))
+	const updatedNote = new Note(Object.assign({}, note, req.body))
 	updatedNote.id = req.params.id
 
 	if (!updatedNote.isValid()) return res.status(400).end()
