@@ -7,7 +7,7 @@ GATEKEEPER_URL=
 REDIS_URI=
 ```
 
-Exposes the following entrypoints
+to expose the following entrypoints
 
 `GET /contacts`
 
